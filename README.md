@@ -1,6 +1,9 @@
 Naive-Bayesian-Spam-Filter
 ==========================
 
-Backend of a spam filter using a naive Bayesian classifier:
+Spam filter using naive bayes classifier.
 
-Will train using the UCI Spam database
+Currently trains itself using the UCI spambase dataset, which can be found at:
+https://archive.ics.uci.edu/ml/datasets/Spambase
+
+
