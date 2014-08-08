@@ -9,6 +9,24 @@ features = {"words": [],     #list of words (need right order)
             }
 
 
+def classify(message):
+    words = features['words']
+    spam_probs = features['spam_probs']
+    ham_probs = features['ham_probs']
+
+    print('Computing Probabilities...')
+
+    w = message.split()
+    for word in w:
+        try:
+            # P(S|W) = P(W|S)/( P(W|S) + P(W|H) )
+            if word in words:
+                prob = spam_probs[word] / (spam_probs[word] + ham_probs[word])
+                print word + ': ' + str(prob)
+        except ZeroDivisionError:
+                print word + ': underflow'
+    
+
 if __name__ == '__main__':
     # get words from spamebase.names
     names = open('names', 'r').readlines()
@@ -37,7 +55,6 @@ if __name__ == '__main__':
         values = line.split(',')
         for i in range(0,len(words)):
             word = words[i]
-       #     print values[-1][0]
             if values[-1][0] == '1': 
                 spam_probs[word] = (spam_probs[word] + float(values[i]))/count
             else:
@@ -45,9 +62,7 @@ if __name__ == '__main__':
 
             count += 1
 
-    for word in words:
-        print word
-        print spam_probs[word]
-        print ham_probs[word]
+    classify('your credit report is overdue!')
+    classify('hey, did you send me the files yet?')
     
 
