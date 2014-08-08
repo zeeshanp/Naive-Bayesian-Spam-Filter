@@ -7,7 +7,7 @@ features = {"words": [],     #list of words (need right order)
             "spam_probs": {},   #probabilities 
             "ham_probs": {}
             }
-  
+
 
 if __name__ == '__main__':
     # get words from spamebase.names
@@ -37,14 +37,17 @@ if __name__ == '__main__':
         values = line.split(',')
         for i in range(0,len(words)):
             word = words[i]
-            if values[-1] == '0': # non-spam (ham)              
-                ham_probs[word] = (ham_probs[word] + float(values[i]))/count
-            else:
+       #     print values[-1][0]
+            if values[-1][0] == '1': 
                 spam_probs[word] = (spam_probs[word] + float(values[i]))/count
+            else:
+                ham_probs[word] = (ham_probs[word] + float(values[i]))/count
 
             count += 1
 
-    print ham_probs
-    print spam_probs
+    for word in words:
+        print word
+        print spam_probs[word]
+        print ham_probs[word]
     
 
